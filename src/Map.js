@@ -66,7 +66,11 @@ const layerStyle = {
 };
 
 function Map_(data) {
-    console.log(data)
+    //console.log(data)
+    //console.log(data.data.features);
+    for(var i of data.data.features){
+        console.log(i.properties)
+    }
     return (
         <Map
             initialViewState={{
