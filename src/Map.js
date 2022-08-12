@@ -1,5 +1,7 @@
 import React from 'react'
 import Map, {Marker, Source, Layer} from 'react-map-gl';
+import Card from './Card'
+import Box from '@mui/material/Box';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 
@@ -74,28 +76,20 @@ const layerStyle = {
     }
 };
 
-function Map_(data) {
+function Map_({data, dislpay}) {
     //console.log(data.data.features)
     //console.log(data.data.features);
     var fence = []
-    for(var i of data.data.features){
+    for(var i of data.features){
         console.log(i.properties)
         fence.push(
-        <div style={postItStyle}>
-            {
-            '\nid: ' + i.properties.id +
-            '\nName: ' + i.properties.Name +
-            '\n isActive: ' + i.properties.isActive +
-            '\nType: ' + i.properties.Type +
-            '\nLevel: ' + i.properties.Level +
-            '\nExistance_Status: ' + i.properties.Existance_Status
-            }
-        </div>)
+            <Card properties={i.properties}/>
+        )
     }
     return (
         <>
-        {fence}
-        {/*<Map
+        
+        {<Map
             initialViewState={{
             latitude: 23.944939439090547,
             longitude: 120.648907689199,
@@ -105,11 +99,19 @@ function Map_(data) {
             mapStyle="mapbox://styles/mapbox/satellite-streets-v11"
             mapboxAccessToken={'pk.eyJ1IjoiZDBvbzAiLCJhIjoiY2w2cDhnb3N4MDhiajNqbHB3NDczOXlocyJ9.bMt1-8OFtXipjEo81rLYpw'}
         >
-            //{<Marker longitude={-122.4} latitude={37.8} color="red" />}
+            {/*<Marker longitude={-122.4} latitude={37.8} color="red" />*/}
             <Source id="my-data" type="geojson" data={geojson}>
                 <Layer {...layerStyle} />
             </Source>
-        </Map>*/}</>)
+        </Map>}
+        {dislpay ?
+        <Box sx={{position:'absolute', top:'0'}}>
+            {fence}
+        </Box>:
+        ''
+        }
+        
+        </>)
 }
 
 export default React.memo(Map_)
