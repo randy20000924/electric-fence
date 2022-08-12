@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import Map from './Map'
+import BtnGroup from './BtnGroup'
+import {useEffect, useState} from 'react'
 
 function App() {
+  var [data, setData] = useState(true)
+  useEffect(()=>{
+    fetch('http://localhost:3001/electric-fence',{
+        method: "GET",
+        headers: new Headers({
+            'Content-Type': 'application/json',
+        })
+    })
+    .then(res => res.json())
+    .then((info)=>{
+        //console.log(info)
+        setData(info)
+    })
+  }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {data==true ? 'loading' : <Map data = {data}/>}
+      <BtnGroup/>
     </div>
   );
 }
