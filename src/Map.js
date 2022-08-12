@@ -56,6 +56,15 @@ const geojson = {
     ]
   };
 
+const postItStyle ={
+    width:'20vw', 
+    height:'40vh', 
+    position:'relative', 
+    display:'inline-block',
+    borderStyle:'solid',
+    borderWidth:'1px'
+}
+
 const layerStyle = {
     id: 'point',
     type: 'circle',
@@ -66,13 +75,27 @@ const layerStyle = {
 };
 
 function Map_(data) {
-    //console.log(data)
+    //console.log(data.data.features)
     //console.log(data.data.features);
+    var fence = []
     for(var i of data.data.features){
         console.log(i.properties)
+        fence.push(
+        <div style={postItStyle}>
+            {
+            '\nid: ' + i.properties.id +
+            '\nName: ' + i.properties.Name +
+            '\n isActive: ' + i.properties.isActive +
+            '\nType: ' + i.properties.Type +
+            '\nLevel: ' + i.properties.Level +
+            '\nExistance_Status: ' + i.properties.Existance_Status
+            }
+        </div>)
     }
     return (
-        <Map
+        <>
+        {fence}
+        {/*<Map
             initialViewState={{
             latitude: 23.944939439090547,
             longitude: 120.648907689199,
@@ -82,11 +105,11 @@ function Map_(data) {
             mapStyle="mapbox://styles/mapbox/satellite-streets-v11"
             mapboxAccessToken={'pk.eyJ1IjoiZDBvbzAiLCJhIjoiY2w2cDhnb3N4MDhiajNqbHB3NDczOXlocyJ9.bMt1-8OFtXipjEo81rLYpw'}
         >
-            {/*<Marker longitude={-122.4} latitude={37.8} color="red" />*/}
+            //{<Marker longitude={-122.4} latitude={37.8} color="red" />}
             <Source id="my-data" type="geojson" data={geojson}>
                 <Layer {...layerStyle} />
             </Source>
-        </Map>)
+        </Map>*/}</>)
 }
 
 export default React.memo(Map_)
