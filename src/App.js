@@ -6,10 +6,11 @@ import {displayInfo} from './app/infoReducer2'
 
 function App(){
   const info = useSelector(state => state.info)
-  console.log(info.value)
+  //console.log(info.value)
   const dispatch = useDispatch()
 
   var [data, setData] = useState(true)
+  
   useEffect(()=>{
     fetch('http://localhost:3001/electric-fence',{
         method: "GET",
@@ -26,7 +27,8 @@ function App(){
   return (
     <div className="App">
       {data==true ? 'loading' : <Map data = {data} dislpay = {info.value}/>}
-      <button onClick={(()=>dispatch(displayInfo()))} style={{position: 'fixed',top:0,right:0}}>123</button>
+      <button onClick={(()=>dispatch(displayInfo()))} style={{position: 'fixed',top:0,right:0}}>Display</button>
+      <button onClick={(()=>dispatch(displayInfo()))} style={{position: 'fixed',top:0,right:60}}>Upload</button>
     </div>
   );
 }

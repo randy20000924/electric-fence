@@ -6,7 +6,7 @@ const initialState = { value: true }
 // export const infoReducer = createReducer(initialState, (builder) => {
 //     builder
 //     .addCase(displayInfo, (state, action) => {
-//       state.value = !state.value 
+//       state.value = !state.value
 //     })
 // })
 
