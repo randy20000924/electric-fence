@@ -9,33 +9,74 @@ const OutlineCardStyle = {
   
   minWidth: 275, 
   opacity: 0.7 , 
-  display:'inline-block', 
-  zIndex:1, 
+  display: 'inline-block', 
+  zIndex: 1, 
   position:'relative',
 }
 
 var OutlinedCard = ({properties}) => {
-  var [textValue, setTextValue ] = useState(properties.Name)
+  var [name, setName ] = useState(properties.Name)
+  var [type, setType ] = useState(properties.Type)
+  var [level, setLevel ] = useState(properties.Level)
+  var [existanceStatus, setExistanceStatus ] = useState(properties.Existance_Status)
   var [checkboxValue, setCheckboxValue ] = useState(properties.isActive=='true')
 
   var checkboxHandler = () => {
     setCheckboxValue(!checkboxValue)
   }
-  var textHandler = (e) => {
-    setTextValue(e.target.value)
+  var nameHandler = (e) => {
+    setName(e.target.value)
   }
-
+  var typeHandler = (e) => {
+    setType(e.target.value)
+  }
+  var levelHandler = (e) => {
+    console.log(e);
+    if ("0123456789".includes(e.nativeEvent.data) || e.nativeEvent.data==null){
+      setLevel(e.target.value)
+    }else{
+      return
+    }
+  }
+  var existanceStatusHandler = (e) => {
+    setExistanceStatus(e.target.value)
+  }
+  var submitHandler = () => {
+    fetch('https://httpbin.org/post', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(
+        {
+          id: "dadf24d8d8fa273dae45a5ec7cb9c666",
+          Name: "#1",
+          isActive: "true",
+          Type: "擊球區",
+          Level: "1",
+          Existance_Status: "2",
+        })
+    })
+    .then()
+    .then((res)=>{
+      console.log(res)
+    })
+  }
+  
   return (
     <Box sx={OutlineCardStyle}>
-      <Card variant="outlined">
-        <CardContent >
-          <Typography sx={{ fontSize: 14, lineHeight: 1,}} color="text.secondary" gutterBottom>
-              {/*<div>{'\nid: ' + properties.id}</div>*/}
-              {'\nName: ' } <input type="text"     onChange={textHandler} value={textValue}/><br/>
-              {'isActive: '}<input type="checkbox" onClick={checkboxHandler} checked={checkboxValue?'checked':''}/>
-              <div>{'\nType: ' + properties.Type}</div>
-              <div>{'\nLevel: ' + properties.Level}</div>
-              <div>{'\nExistance_Status: ' + properties.Existance_Status}</div>
+      <Card variant="outlined" sx={{'& .MuiCardContent-root':{paddingBottom: '8px'}}}>
+        <CardContent sx={{padding:'8px 8px 8px 8px',}}>
+          <Typography sx={{fontSize: 14, lineHeight: 1,}} color="text.secondary" gutterBottom>
+              {/*<div>{'\nid: ' + properties.id}</div>*/} 
+              {'Name: ' } <input type="text"       onChange={nameHandler} value={name}/><br/>
+              {'isActive: '}<input type="checkbox" onClick={checkboxHandler} checked={checkboxValue?'checked':''}/><br/>
+              {'\nType: '}<input type="text"       onChange={typeHandler}  value={type} style={{width:'50px', height:'10px'}}/><br/>
+              {'\nLevel: '}<input type="text"      onChange={levelHandler} value={level} style={{width:'20px', height:'10px'}}/><br/>
+              {'\nExistance_Status: '}<input type="text" onChange={existanceStatusHandler}  value={existanceStatus} style={{width:'20px', height:'10px'}}/><br/>
+              <button onClick={submitHandler}> 修改 </button>
+              <button style={{}}> 取消 </button>
           </Typography>
         </CardContent>
       </Card>

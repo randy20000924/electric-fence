@@ -4,7 +4,7 @@ const initialState = { value: true }
 
 export const infoSlices = createSlice({
   name: 'infoDisplay',
-  initialState, 
+  initialState,
   reducers:{
     displayInfo:(state, action)=>{
       state.value = !state.value
