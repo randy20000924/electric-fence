@@ -19,7 +19,7 @@ var OutlinedCard = ({properties}) => {
   var [type, setType ] = useState(properties.Type)
   var [level, setLevel ] = useState(properties.Level)
   var [existanceStatus, setExistanceStatus ] = useState(properties.Existance_Status)
-  var [checkboxValue, setCheckboxValue ] = useState(properties.isActive=='true')
+  var [checkboxValue, setCheckboxValue ] = useState(properties.isActive==='true')
 
   var checkboxHandler = () => {
     setCheckboxValue(!checkboxValue)
