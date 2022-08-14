@@ -19,7 +19,7 @@ var OutlinedCard = ({properties}) => {
   var [type, setType ] = useState(properties.Type)
   var [level, setLevel ] = useState(properties.Level)
   var [existanceStatus, setExistanceStatus ] = useState(properties.Existance_Status)
-  var [checkboxValue, setCheckboxValue ] = useState(properties.isActive=='true')
+  var [checkboxValue, setCheckboxValue ] = useState(properties.isActive==='true')
 
   var checkboxHandler = () => {
     setCheckboxValue(!checkboxValue)
@@ -42,7 +42,7 @@ var OutlinedCard = ({properties}) => {
     setExistanceStatus(e.target.value)
   }
   var submitHandler = () => {
-    fetch('https://httpbin.org/post', {
+    fetch('http://localhost:3001/electric-fence', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -50,17 +50,18 @@ var OutlinedCard = ({properties}) => {
       },
       body: JSON.stringify(
         {
-          id: "dadf24d8d8fa273dae45a5ec7cb9c666",
-          Name: "#1",
-          isActive: "true",
-          Type: "擊球區",
-          Level: "1",
-          Existance_Status: "2",
+          id: properties.id,
+          Name: name,
+          isActive: checkboxValue,
+          Type: type,
+          Level: level,
+          Existance_Status: existanceStatus,
         })
     })
     .then()
     .then((res)=>{
-      console.log(res)
+      if (res.ok)
+      console.log(res.ok)
     })
   }
   
@@ -71,7 +72,7 @@ var OutlinedCard = ({properties}) => {
           <Typography sx={{fontSize: 14, lineHeight: 1,}} color="text.secondary" gutterBottom>
               {/*<div>{'\nid: ' + properties.id}</div>*/} 
               {'Name: ' } <input type="text"       onChange={nameHandler} value={name}/><br/>
-              {'isActive: '}<input type="checkbox" onClick={checkboxHandler} checked={checkboxValue?'checked':''}/><br/>
+              {'isActive: '}<input type="checkbox" onClick={checkboxHandler} defaultChecked={checkboxValue?'checked':''} /><br/>
               {'\nType: '}<input type="text"       onChange={typeHandler}  value={type} style={{width:'50px', height:'10px'}}/><br/>
               {'\nLevel: '}<input type="text"      onChange={levelHandler} value={level} style={{width:'20px', height:'10px'}}/><br/>
               {'\nExistance_Status: '}<input type="text" onChange={existanceStatusHandler}  value={existanceStatus} style={{width:'20px', height:'10px'}}/><br/>

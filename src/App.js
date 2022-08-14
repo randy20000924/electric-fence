@@ -1,5 +1,4 @@
 import Map from './Map'
-import BtnGroup from './BtnGroup'
 import {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {displayInfo} from './app/infoReducer2'
@@ -26,7 +25,7 @@ function App(){
 
   return (
     <div className="App">
-      {data==true ? 'loading' : <Map data = {data} dislpay = {info.value}/>}
+      {data===true ? 'loading' : <Map data = {data} dislpay = {info.value}/>}
       <button onClick={(()=>dispatch(displayInfo()))} style={{position: 'fixed',top:0,right:0}}>Display</button>
       <button onClick={(()=>dispatch(displayInfo()))} style={{position: 'fixed',top:0,right:60}}>Upload</button>
     </div>
