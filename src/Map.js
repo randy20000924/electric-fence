@@ -1,5 +1,5 @@
 import React from 'react'
-import Map, {Marker, Source, Layer} from 'react-map-gl';
+import Map, { Source, Layer} from 'react-map-gl';
 import Card from './Card'
 import Box from '@mui/material/Box';
 
@@ -58,15 +58,6 @@ const geojson = {
     ]
   };
 
-const postItStyle ={
-    width:'20vw', 
-    height:'40vh', 
-    position:'relative', 
-    display:'inline-block',
-    borderStyle:'solid',
-    borderWidth:'1px'
-}
-
 const layerStyle = {
     id: 'point',
     type: 'circle',
@@ -81,9 +72,9 @@ function Map_({data, dislpay}) {
     //console.log(data.data.features);
     var fence = []
     for(var i of data.features){
-        console.log(i.properties)
+        //console.log(i.properties)
         fence.push(
-            <Card properties={i.properties}/>
+            <Card properties={i.properties} key={i.properties.id}/>
         )
     }
     return (
